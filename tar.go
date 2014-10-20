@@ -8,12 +8,16 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
-func ExportFromEtcdToTar(client *etcd.Client, host string) {
-	dirs := make(map[string]bool)
+func ExportFromEtcdToTar(client *etcd.Client, host, path string) {
+	if !strings.HasPrefix(path, "/") {
+		path = "/" + path
+	}
 
-	dirs["/"] = true
+	dirs := make(map[string]bool)
+	dirs[path] = true
 
 outer:
 	for {
@@ -115,4 +119,3 @@ func ExportFromTarToEtcd(client *etcd.Client, host string) {
 		fmt.Println(r, err)
 	}
 }
-
