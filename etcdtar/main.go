@@ -42,6 +42,7 @@ func etcdClient() *etcd.Client {
 	}
 
 	if *showCurl {
+		// Activates the output of strings that describe how each request would be performed with /bin/curl.
 		client.OpenCURL()
 		defer client.CloseCURL()
 
